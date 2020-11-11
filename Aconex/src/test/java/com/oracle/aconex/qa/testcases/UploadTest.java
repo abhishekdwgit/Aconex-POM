@@ -46,6 +46,6 @@ public class UploadTest extends TestBase{
 	
 	@AfterMethod
 	public void tearDown(){
-		//driver.quit();
+		driver.quit();
 	}
 }

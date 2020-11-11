@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Aconex-Test Automation Suite" duration-ms="164579" started-at="2020-11-11T17:20:57 IST" finished-at="2020-11-11T17:23:42 IST">
+    <groups>
+    </groups>
+    <test name="Aconex Test Cases" duration-ms="164579" started-at="2020-11-11T17:20:57 IST" finished-at="2020-11-11T17:23:42 IST">
+      <class name="com.oracle.aconex.qa.testcases.SendMailTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.oracle.aconex.qa.testcases.SendMailTest@5c072e3f]" name="setUp" is-config="true" duration-ms="23721" started-at="2020-11-11T17:20:57 IST" finished-at="2020-11-11T17:21:21 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="sendMailTest()[pri:0, instance:com.oracle.aconex.qa.testcases.SendMailTest@5c072e3f]" name="sendMailTest" duration-ms="67919" started-at="2020-11-11T17:21:21 IST" finished-at="2020-11-11T17:22:29 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sendMailTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.oracle.aconex.qa.testcases.SendMailTest@5c072e3f]" name="tearDown" is-config="true" duration-ms="1206" started-at="2020-11-11T17:22:29 IST" finished-at="2020-11-11T17:22:30 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.oracle.aconex.qa.testcases.SendMailTest -->
+      <class name="com.oracle.aconex.qa.testcases.UploadTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.oracle.aconex.qa.testcases.UploadTest@4d1b0d2a]" name="setUp" is-config="true" duration-ms="15701" started-at="2020-11-11T17:22:30 IST" finished-at="2020-11-11T17:22:46 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="uploadTest()[pri:0, instance:com.oracle.aconex.qa.testcases.UploadTest@4d1b0d2a]" name="uploadTest" duration-ms="55956" started-at="2020-11-11T17:22:46 IST" finished-at="2020-11-11T17:23:42 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- uploadTest -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.oracle.aconex.qa.testcases.UploadTest@4d1b0d2a]" name="tearDown" is-config="true" duration-ms="0" started-at="2020-11-11T17:23:42 IST" finished-at="2020-11-11T17:23:42 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.oracle.aconex.qa.testcases.UploadTest -->
+    </test> <!-- Aconex Test Cases -->
+  </suite> <!-- Aconex-Test Automation Suite -->
+</testng-results>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Aconex-Test Automation Suite">
+
+	<test name="Aconex Test Cases">
+		<classes>
+			<class name="com.oracle.aconex.qa.testcases.SendMailTest"></class>
+			<class name="com.oracle.aconex.qa.testcases.UploadTest"></class>
+		</classes>
+	</test>
+</suite>

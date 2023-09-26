@@ -1,0 +1,66 @@
+package com.automation.reporting.xmltest;
+
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.stream.IntStream;
+
+public class MergeXmlFiles {
+    public static void main(String[] args) {
+        try {
+            // Parse the first XML file
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            Document doc1 = builder.parse(new File(Paths.get("reporting/src/test/resources/xmlfiles/test1.xml").toString()));
+            Document doc2 = builder.parse(new File(Paths.get("reporting/src/test/resources/xmlfiles/test2.xml").toString()));
+
+            // Create a new Document for the final result
+            Document finalDoc = builder.newDocument();
+
+            // Create the root element for the final XML
+            Element rootElement = finalDoc.createElement("company");
+            finalDoc.appendChild(rootElement);
+
+            // Define the ids to select
+            String[] selectedIds = {"222", "444"};
+
+            // Process both documents
+            Document[] documents = {doc1, doc2};
+            IntStream.range(0, documents.length).forEach(i -> {
+                        Document doc = documents[i];
+                        String idToSelect = selectedIds[i];
+                        NodeList staffList = doc.getElementsByTagName("staff");
+                        // Use Java 8 streams and filter to select nodes with the desired id
+                        IntStream.range(0, staffList.getLength())
+                                .mapToObj(staffList::item)
+                                .map(node -> (Element) node)
+                                .filter(staff -> {
+                                    Element idElement = (Element) staff.getElementsByTagName("uti").item(0);
+                                    String uti = idElement.getTextContent();
+                                    return uti.contains(idToSelect);
+                                })
+                                .forEach(selectedStaff -> {
+                                    Node copiedStaff = finalDoc.importNode(selectedStaff, true);
+                                    rootElement.appendChild(copiedStaff);
+                                });
+                    });
+
+            // Write the final XML to a new file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(finalDoc);
+            StreamResult result = new StreamResult(new File("reporting/src/test/resources/final.xml"));
+            transformer.transform(source, result);
+
+            System.out.println("Selected nodes copied to final.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+

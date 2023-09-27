@@ -8,10 +8,15 @@ import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.stream.IntStream;
 
 public class MergeXmlFiles {
@@ -97,6 +102,25 @@ public class MergeXmlFiles {
         System.out.println(doc.getElementsByTagName("staff").item(2).getAttributes().getNamedItem("id").toString());
         System.out.println(doc.getElementsByTagName("uti").item(2).getTextContent());
         System.out.println(doc.getElementsByTagName("uti").item(0).getTextContent());
+    }
+
+    public static void updateNodeValue1(Document doc, HashMap<String,String> hm) throws XPathExpressionException, DOMException {
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        Node rootNode = doc.getFirstChild();
+        NodeList list = rootNode.getChildNodes();
+
+        System.out.println(list.getLength());
+        System.out.println(rootNode.getChildNodes().getLength());
+
+        for (int i = 1; i <= list.getLength(); i++) {
+            // if key exists - place value inside for that key
+            if(xpath.evaluate("//INFO["+i+"]//trade/text()", doc, XPathConstants.STRING).equals("114")) {
+                Element e = (Element) xpath.evaluate("//INFO[4]//swap", doc, XPathConstants.NODE);
+                if (e != null)
+                    e.setTextContent(hm.get("114"));
+            }
+
+        }
     }
 }
 

@@ -102,4 +102,30 @@ public class NodeListToString {
         Document document = builder.parse(new File(Paths.get("src/test/resources/xmlfiles/test1.xml").toString()));
             return document;
     }
+
+// -------------- verify/update tag value in xml doc ----------
+    @Test
+    void verifyTagTest() throws Exception{
+        String fpath= Paths.get("src/test/resources/xmlfiles/test1.xml").toString();
+        Document document = readXmlAsDocument(fpath);
+        verifyViaXpath(document);
+    }
+
+    // need doc input for xpath - verify any tag value
+    public void verifyViaXpath(Document doc) throws Exception {
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        String val= xpath.evaluate("//staff[3]//firstname/text()", doc, XPathConstants.STRING).toString();
+        System.out.println("verify tag value:"+val);    //virat1
+    }
+
+    // need doc input for xpath - update tag value
+    public static void updateViaXpath(Document doc) throws Exception {
+        //for(int i=0;i<4;i++) {
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        if(xpath.evaluate("//INFO[4]//trade/text()", doc, XPathConstants.STRING).toString().contains("test")) {
+            Element e = (Element) xpath.evaluate("//INFO[4]//swap", doc, XPathConstants.NODE);
+            if (e != null)
+                e.setTextContent("newTest");
+        }
+    }
     }

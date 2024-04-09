@@ -1,0 +1,70 @@
+void writeHeaderFooter(){
+    	        // Sample LinkedHashMap with key-value pairs
+    	        LinkedHashMap<String, List<String>> dataMap = new LinkedHashMap<>();
+    	        dataMap.put("Key1", Arrays.asList("Value1", "Value2", "Value3"));
+    	        dataMap.put("Key2", Arrays.asList("Value4", "Value5","Value6"));
+    	        dataMap.put("Key3", Arrays.asList("Value7", "Value8", "Value9"));
+
+    	        // Create a new Workbook instance
+    	        Workbook workbook = new XSSFWorkbook(); // For .xlsx format
+
+    	        // Create a Sheet
+    	        Sheet sheet = workbook.createSheet("Data");
+
+    	        // Write header rows
+    	        for (int i = 0; i < 3; i++) {
+    	            Row headerRow = sheet.createRow(i);
+    	            for (int j = 0; j < dataMap.size(); j++) {
+    	                Cell cell = headerRow.createCell(j);
+    	                cell.setCellValue("Header " + (i + 1));
+    	            }
+    	        }
+
+    	        // Write keys to the first row
+    	        Row keyRow = sheet.createRow(3);
+    	        int colNum = 0;
+    	        for (String key : dataMap.keySet()) {
+    	            Cell cell = keyRow.createCell(colNum++);
+    	            cell.setCellValue(key);
+    	        }
+
+    	        // Write values to related columns
+    	        int maxListSize = getMaxListSize(dataMap);
+    	        for (int i = 0; i < maxListSize; i++) {
+    	            Row row = sheet.createRow(i + 4); // Start from the fifth row after the keys and headers
+    	            int cellNum = 0;
+    	            for (List<String> values : dataMap.values()) {
+    	                Cell cell = row.createCell(cellNum++);
+    	                if (i < values.size()) {
+    	                    cell.setCellValue(values.get(i));
+    	                } else {
+    	                    cell.setCellValue(""); // If the list doesn't have enough values, write an empty string
+    	                }
+    	            }
+    	        }
+
+    	        // Write footer rows
+    	        int lastRowNum = sheet.getLastRowNum();
+    	        for (int i = 1; i <= 3; i++) {
+    	            Row footerRow = sheet.createRow(lastRowNum + i);
+    	            for (int j = 0; j < dataMap.size(); j++) {
+    	                Cell cell = footerRow.createCell(j);
+    	                cell.setCellValue("Footer " + i);
+    	            }
+    	        }
+
+    	        // Write the workbook content to a file
+    	        try (FileOutputStream fos = new FileOutputStream("output.xlsx")) {
+    	            workbook.write(fos);
+    	            System.out.println("Excel file has been created successfully!");
+    	        } catch (IOException e) {
+    	            e.printStackTrace();
+    	        } finally {
+    	            // Close the workbook to release resources
+    	            try {
+    	                workbook.close();
+    	            } catch (IOException e) {
+    	                e.printStackTrace();
+    	            }
+    	        }
+    	    }

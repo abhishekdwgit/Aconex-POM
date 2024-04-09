@@ -68,3 +68,14 @@ void writeHeaderFooter(){
     	            }
     	        }
     	    }
+
+ // Method to get the maximum size of the lists in the LinkedHashMap
+    private static int getMaxListSize(LinkedHashMap<String, List<String>> map) {
+        int maxSize = 0;
+        for (List<String> list : map.values()) {
+            if (list.size() > maxSize) {
+                maxSize = list.size();
+            }
+        }
+        return maxSize;
+    }
